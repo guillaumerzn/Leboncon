@@ -17,8 +17,12 @@ const Header2 = () => {
     rooter.push("/annonce");
   };
 
+  const handleConnexionClicked = () => {
+    rooter.push("/connexion");
+  };
+
   return (
-    <header className="bg-orange-600 text-white flex flex-col items-start rounded-t-3xl pb-[172px]">
+    <header className="bg-orange-600 text-white flex flex-col items-start rounded-t-3xl pb-[140px]">
       <div className=" w-full p-12 space-x-6 flex flex-row justify-between">
         <div className="flex flex-row items-center">
             <a className="cursor-pointer" onClick={ () => handleLogoClicked()}>
@@ -44,7 +48,7 @@ const Header2 = () => {
             + Annonce
           </Button>
           </a>
-          <Button className=" bg-black text-white" variant="secondary">
+          <Button className=" bg-black text-white" variant="secondary" onClick={() => handleConnexionClicked()}>
             Connexion
           </Button>
         </div>

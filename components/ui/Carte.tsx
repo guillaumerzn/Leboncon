@@ -9,27 +9,25 @@ type CarteProps = {
 };
 
 export default function Carte({ followedBrand }: CarteProps) {
-  const rooter = useRouter();
+  const router = useRouter();
 
-  const handleProductClicked = () => {
-    rooter.push(`/products/${followedBrand.id}`);
+  const handleBrandClicked = () => {
+    router.push(`/products/${followedBrand.id}`);
   };
 
   return (
     <Card className="w-[350px] h-[500px] rounded-lg shadow-xl flex flex-col items-center p-4 bg-white">
-      <button
-        onClick={() => handleProductClicked()}
-        className="flex flex-col items-center w-full h-full"
-      >
+      
         <CardContent className="flex flex-col items-center w-full h-full">
           {/* Image principale */}
           <div className="relative w-full h-64 mb-4">
-            <a onClick={() => handleProductClicked()}>
+            <a onClick={handleBrandClicked}>
               <Image
                 src={followedBrand.imageUri}
                 alt={`Image principale de ${followedBrand.brandName}`}
-                className="rounded-md object-contain"
+                className="rounded-xl object-contain cursor-pointer"
                 layout="fill"
+
               />
             </a>
           </div>
@@ -40,7 +38,7 @@ export default function Carte({ followedBrand }: CarteProps) {
                 src={followedBrand.imageUriThumbnail1}
                 layout="fill"
                 alt={`Vignette 1 de ${followedBrand.brandName}`}
-                className="object-contain rounded"
+                className="object-contain rounded-xl"
               />
             </div>
             <div className="relative w-20 h-20">
@@ -48,7 +46,7 @@ export default function Carte({ followedBrand }: CarteProps) {
                 src={followedBrand.imageUriThumbnail2}
                 layout="fill"
                 alt={`Vignette 2 de ${followedBrand.brandName}`}
-                className="object-contain rounded"
+                className="object-contain rounded-xl"
               />
             </div>
             <div className="relative w-20 h-20">
@@ -56,7 +54,7 @@ export default function Carte({ followedBrand }: CarteProps) {
                 src={followedBrand.imageUriThumbnail3}
                 layout="fill"
                 alt={`Vignette 3 de ${followedBrand.brandName}`}
-                className="object-contain rounded"
+                className="object-contain rounded-xl"
               />
             </div>
           </div>
@@ -77,9 +75,9 @@ export default function Carte({ followedBrand }: CarteProps) {
             </CardTitle>
           </div>
           {/* Texte d'items à collectionner */}
-          <p className="text-xs text-gray-500">25 items to collect</p>
+          <p className="text-xs text-gray-500">4 items to collect</p>
         </CardFooter>
-      </button>
+      
     </Card>
   );
 }

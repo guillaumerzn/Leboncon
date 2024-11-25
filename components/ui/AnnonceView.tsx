@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import DescriptionUpload from "./descriptionUpload";
 import { Input } from "@/components/ui/input";
 import { FollowedBrandType } from "@/app/home/page";
-import { title } from "process";
+
 
 export default function AnnonceView() {
     const router = useRouter();

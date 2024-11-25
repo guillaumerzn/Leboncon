@@ -18,16 +18,20 @@ const Header = () => {
     rooter.push("/annonce");
   };
 
+  const handleConnexionClicked = () => {
+    rooter.push("/connexion");
+  };
+
   return (
     <header className="bg-orange-600 text-white flex flex-col items-start rounded-t-3xl">
-      <div className=" w-full p-12 space-x-6 flex flex-row justify-between">
+      <div className=" w-full pl-12 pr-12 pt-12 pb-4 space-x-6 flex flex-row justify-between ">
         <div className="flex flex-row items-center">
           <a className="cursor-pointer" onClick={() => handleLogoClicked()}>
             <h1 className="text-4xl font-bold mr-14">Leboncon</h1>
           </a>
 
           <Input
-            className="w-[25vw] h-12 rounded-xl "
+            className="w-[25vw] h-12 rounded-xl text-black"
             type="text"
             placeholder=" 🔎  Recherchez vos items préférés..."
           />
@@ -45,7 +49,7 @@ const Header = () => {
             + Annonce
           </Button>
           </a>
-          <Button className=" bg-black text-white" variant="secondary">
+          <Button className=" bg-black text-white" variant="secondary" onClick={() => handleConnexionClicked()}  >
             Connexion
           </Button>
         </div>
