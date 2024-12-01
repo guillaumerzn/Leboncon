@@ -1,7 +1,11 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { FollowedBrandType, ProductType } from "@/app/home/page";
+import { ProductType as OriginalProductType } from "@/app/home/page";
+
+type ProductType = OriginalProductType & {
+  logo?: string;
+};
 import ChatBubble from "./ChatBulle";
 
 import {
@@ -15,14 +19,11 @@ import Carte from "./Carte";
 import Carte2 from "./Carte2";
 
 type HomeViewProps = {
-  followedBrands: FollowedBrandType[];
-  products: ProductType[];
+  products: (ProductType & { sellerName: string })[];
 };
 
-export default function HomeView({
-  followedBrands,
-  products,
-}: HomeViewProps) {
+export default function HomeView({ products }: HomeViewProps) {
+  
   return (
     <div>
       <Header />
@@ -33,15 +34,17 @@ export default function HomeView({
         </div>
 
         <Carousel className="max-w-7xl drop-shadow-xl mt-16" opts={{ align: "start" }}>
-          <CarouselContent>
-            {followedBrands.map((followedBrand, key) => (
-              <CarouselItem
-                key={key}
-                className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
-              >
-                <Carte followedBrand={followedBrand} />
-              </CarouselItem>
-            ))}
+        <CarouselContent>
+            {products
+              .sort((a, b) => a.id - b.id)
+              .map((product, key) => (
+                <CarouselItem
+                  key={key}
+                  className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
+                >
+                  <Carte product={{ ...product, logo: product.logo || 'default-logo.png', sellerProducts: [] }} />
+                </CarouselItem>
+              ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
@@ -60,7 +63,7 @@ export default function HomeView({
                   key={key}
                   className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
                 >
-                  <Carte2 product={product} />
+                  <Carte2 product={{ ...product, logo: product.logo || 'default-logo.png' }} />
                 </CarouselItem>
               ))}
           </CarouselContent>

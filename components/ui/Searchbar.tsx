@@ -11,6 +11,7 @@ import {
 } from "./navigation-menu";
 import { Separator } from "./separator";
 import { Layers3, Truck, LandPlot, CircleDollarSign } from "lucide-react";
+import { Slider } from "./slider";
 
 const Searchbar = () => {
   return (
@@ -86,8 +87,15 @@ const Searchbar = () => {
                 <h1 className="ml-2">Prix</h1>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <NavigationMenuLink className="text-black p-4 justify-center">
-                  Link3
+                <NavigationMenuLink className="text-black p-96 justify-center">
+                  <Slider className=" ">
+                    min={0}
+                    max={1000}
+                    step={10}
+                    defaultValue={[100, 500]}
+                    
+                  </Slider>
+
                 </NavigationMenuLink>
               </NavigationMenuContent>
             </NavigationMenuItem>

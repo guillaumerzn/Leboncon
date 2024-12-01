@@ -29,12 +29,13 @@ const Header = () => {
           <a className="cursor-pointer" onClick={() => handleLogoClicked()}>
             <h1 className="text-4xl font-bold mr-14">Leboncon</h1>
           </a>
-
+          {/*}
           <Input
             className="w-[25vw] h-12 rounded-xl text-black"
             type="text"
             placeholder=" 🔎  Recherchez vos items préférés..."
           />
+          */}
         </div>
         <div className="flex space-x-8 flex-row items-center">
           <Avatar className="ml-auto  w-20 h-20">

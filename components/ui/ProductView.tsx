@@ -26,6 +26,7 @@ export default function ProductView({ product }: ProductViewProps) {
       <div className="flex justify-center mt-20">
         <div className="flex justify-center space-x-12">
         <div className="relative w-[400px] h-[400px]">
+         
             <Image
               src={product.image_1}
               alt={`Image de ${product.title}`}
@@ -33,7 +34,7 @@ export default function ProductView({ product }: ProductViewProps) {
               className="object-contain rounded-xl shadow-md"
             />
           </div>
-          {/* Deuxième image */}
+           
           <div className="relative w-[400px] h-[400px]">
             <Image
               src={product.image_2}
@@ -41,9 +42,10 @@ export default function ProductView({ product }: ProductViewProps) {
               layout="fill"
               className="object-contain rounded-xl shadow-md"
             />
+
           </div>
-          <div className="w-[400px] rounded-lg shadow-md border-4 border-orange-200 bg-orange-100 hover:shadow-xl">
-            <div className="flex flex-row items-center mt-8">
+          <div className="w-[400px] rounded-lg shadow-md border-4 border-orange-200 bg-orange-100 hover:shadow-xl ">
+            <div className="flex flex-row items-center mt-8 ">
               <Avatar className="ml-8 w-16 h-16">
                 <AvatarImage
                   src="https://github.com/shadcn.png"
@@ -51,10 +53,10 @@ export default function ProductView({ product }: ProductViewProps) {
                 />
               </Avatar>
               <h1 className="text-2xl font-bold ml-6 text-orange-600">
-                Michel_Brésil76
+                {product.seller}
               </h1>
             </div>
-            <div className="mt-20">
+            <div className="mt-20 ">
                 <h1 className="ml-8"></h1>
 
             </div>
@@ -78,7 +80,7 @@ export default function ProductView({ product }: ProductViewProps) {
       <div className="flex flex-col mt-20">
         <div className="flex flex-row">
           <h1 className="text-4xl font-bold ml-36 mt-2">{product.title}</h1>
-          <h1 className="text-4xl font-bold absolute right-[600px] mt-2 text-orange-600">{product.price}</h1>
+          <h1 className="text-4xl font-bold absolute right-[600px] mt-2 text-orange-600">{product.price} $ </h1>
         </div>
         <p className="text-lg  ml-36 mt-8 w-[880px]">{product.description}</p>
         <div className="flex flex-row">

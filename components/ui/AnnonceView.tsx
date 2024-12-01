@@ -6,7 +6,7 @@ import { Button } from "./button";
 import { useRouter } from "next/navigation";
 import DescriptionUpload from "./descriptionUpload";
 import { Input } from "@/components/ui/input";
-import { FollowedBrandType } from "@/app/home/page";
+
 
 
 export default function AnnonceView() {
@@ -17,26 +17,7 @@ export default function AnnonceView() {
     const [price, setPrice] = useState<string>("");
     const [title, setTitle] = useState<string>("");
   
-    const handleAddProduct = () => {
-      if (imageUri1 && imageUri2 && description && price) {
-        const newProduct: FollowedBrandType = {
-          id: Date.now(), // Utilisez un ID unique
-          imageUri: imageUri1,
-          brandName: `Brand ${Date.now()}`, // Utilisez un nom unique
-          title: title,
-          imageUriThumbnail1: imageUri1,
-          imageUriThumbnail2: imageUri2,
-          imageUriThumbnail3: imageUri1,
-          logoUri: imageUri1,
-        }
-  
-        // Stocker le produit dans localStorage
-        const storedProducts = localStorage.getItem("followedBrands");
-        const products = storedProducts ? JSON.parse(storedProducts) : [];
-        products.push(newProduct);
-        localStorage.setItem("followedBrands", JSON.stringify(products));
-    }
-  }
+   
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(event.target.value);
@@ -89,7 +70,7 @@ export default function AnnonceView() {
                 className="  bg-orange-600  text-white mt-[100px] w-[200px] h-[50px] disabled:border border-gray-300 border-dashed"
                 variant="secondary"
                 disabled={!imageUri1 || !imageUri2 || !description || !price || !title}
-                onClick={handleAddProduct}
+                
               >
                 Déposer cette Annonce
               </Button>
