@@ -1,43 +1,34 @@
 import HomeView from "@/components/ui/HomeView";
-import { getProducts, getUserById } from "@/lib/supabase/queries";
+import { getUsersWithProducts } from "@/lib/supabase/queries";
 import { createClient } from "@/lib/supabase/server";
-
 
 export type ProductType = {
   id: number;
   title: string;
-  seller: number;
+  seller: string;
   description: string;
   price: number;
   image_1: string;
   image_2: string;
 };
 
-
 export type UserType = {
-  id: number;
+  id: string;
   first_name: string;
   last_name: string;
   logo: string;
-  products: number[];
+};
+
+export type UserWithProductsType = {
+  user: UserType;
+  products: ProductType[];
 };
 
 export default async function Page() {
   const supabase = await createClient();
-  const products: ProductType[] = await getProducts(supabase);
+  const usersWithProducts: UserWithProductsType[] = await getUsersWithProducts(supabase);
 
-  // Récupérez les noms et les logos des vendeurs pour chaque produit
-  const productsWithSellerInfo = await Promise.all(
-    products.map(async (product) => {
-      const user = await getUserById(supabase, product.seller) as UserType;
-      return {
-        ...product,
-        sellerName: user ? user.first_name : "Unknown",
-        logo: user ? user.logo : "Unknown",
-        sellerProducts: user ? user.products : [],
-      };
-    })
-  );
+  console.log("Users with products:", usersWithProducts);
 
-  return <HomeView products={productsWithSellerInfo} />;
+  return <HomeView usersWithProducts={usersWithProducts} />;
 }

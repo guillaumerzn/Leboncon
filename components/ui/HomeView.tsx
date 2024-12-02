@@ -1,13 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { ProductType as OriginalProductType } from "@/app/home/page";
-
-type ProductType = OriginalProductType & {
-  logo?: string;
-};
+import { UserWithProductsType } from "@/app/home/page";
 import ChatBubble from "./ChatBulle";
-
 import {
   Carousel,
   CarouselContent,
@@ -19,11 +14,12 @@ import Carte from "./Carte";
 import Carte2 from "./Carte2";
 
 type HomeViewProps = {
-  products: (ProductType & { sellerName: string })[];
+  usersWithProducts: UserWithProductsType[];
 };
 
-export default function HomeView({ products }: HomeViewProps) {
-  
+export default function HomeView({ usersWithProducts }: HomeViewProps) {
+ 
+
   return (
     <div>
       <Header />
@@ -35,16 +31,14 @@ export default function HomeView({ products }: HomeViewProps) {
 
         <Carousel className="max-w-7xl drop-shadow-xl mt-16" opts={{ align: "start" }}>
         <CarouselContent>
-            {products
-              .sort((a, b) => a.id - b.id)
-              .map((product, key) => (
-                <CarouselItem
-                  key={key}
-                  className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
-                >
-                  <Carte product={{ ...product, logo: product.logo || 'default-logo.png', sellerProducts: [] }} />
-                </CarouselItem>
-              ))}
+            {usersWithProducts.map((userWithProducts, key) => (
+              <CarouselItem
+                key={key}
+                className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
+              >
+                <Carte userWithProducts={userWithProducts} />
+              </CarouselItem>
+            ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
@@ -55,17 +49,23 @@ export default function HomeView({ products }: HomeViewProps) {
           <h1 className="text-3xl font-bold ml-[10vw]">Tous les Items</h1>
         </div>
         <Carousel className="max-w-7xl drop-shadow-xl mt-16" opts={{ align: "start" }}>
-          <CarouselContent>
-            {products
-              .sort((a, b) => a.id - b.id)
-              .map((product, key) => (
-                <CarouselItem
-                  key={key}
-                  className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
-                >
-                  <Carte2 product={{ ...product, logo: product.logo || 'default-logo.png' }} />
-                </CarouselItem>
-              ))}
+        <CarouselContent>
+            {usersWithProducts.flatMap(userWithProducts =>
+              userWithProducts.products.map(product => ({
+                ...product,
+                sellerName: userWithProducts.user.first_name,
+                logo: userWithProducts.user.logo,
+              }))
+            )
+            .sort((a, b) => a.id - b.id)
+            .map((product, key) => (
+              <CarouselItem
+                key={key}
+                className="basis-1/3 mr-40 md:basis-1/4 lg:basis-1/5"
+              >
+                <Carte2 product={product} />
+              </CarouselItem>
+            ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />

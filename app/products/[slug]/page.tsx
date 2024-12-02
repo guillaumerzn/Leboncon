@@ -9,30 +9,21 @@ import { createClient } from "@/lib/supabase/server";
 
 
 
-export default async function Page({params}: {params: Promise<{ slug:string }>}) {
+export default async function Page({ params }: { params: { slug: string } }) {
+  const productId = params.slug;
 
-  const productId = (await params).slug;
-
-  if (isNaN(productId as unknown as number)) {
-    return(<div>Product not found</div>);       
-
+  if (isNaN(Number(productId))) {
+    return <div>Product not found</div>;
   }
 
   const supabase = await createClient();
-
-  const product = await Promise.resolve(getProduct(supabase, productId as unknown as number));
+  const product = await getProduct(supabase, Number(productId));
 
   console.log(product);
 
   if (!product) {
-    return(<div>Product not found</div>);       
-
+    return <div>Product not found</div>;
   }
 
-  
-
- 
-
-
-  return( <ProductView product={product} />);
+  return <ProductView product={product} />;
 }

@@ -13,6 +13,10 @@ export type ProductType = {
   price: number;
   image_1: string;
   image_2: string;
+  user: {
+    first_name: string;
+    logo: string;
+  };
 };
 
 type ProductViewProps = {
@@ -25,40 +29,38 @@ export default function ProductView({ product }: ProductViewProps) {
       <Header2 />
       <div className="flex justify-center mt-20">
         <div className="flex justify-center space-x-12">
-        <div className="relative w-[400px] h-[400px]">
-         
+          <div className="relative w-[400px] h-[400px]">
             <Image
               src={product.image_1}
               alt={`Image de ${product.title}`}
               layout="fill"
-              className="object-contain rounded-xl shadow-md"
+              className="object-contain rounded-xl shadow-md bg-white"
             />
           </div>
-           
+
           <div className="relative w-[400px] h-[400px]">
             <Image
               src={product.image_2}
               alt={`Image de ${product.title}`}
               layout="fill"
-              className="object-contain rounded-xl shadow-md"
+              className="object-contain rounded-xl shadow-md bg-white"
             />
-
           </div>
           <div className="w-[400px] rounded-lg shadow-md border-4 border-orange-200 bg-orange-100 hover:shadow-xl ">
             <div className="flex flex-row items-center mt-8 ">
-              <Avatar className="ml-8 w-16 h-16">
+            <Avatar className="ml-8 w-16 h-16">
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
+                  src={product.user?.logo || "/default-logo.png"} // Utilisez l'opérateur ?. pour vérifier si user est défini
+                  alt={`Logo de ${product.user?.first_name || "Unknown"}`} // Utilisez l'opérateur ?. pour vérifier si user est défini
+                  className="object-contain border-2 border-orange-500 rounded-full"
                 />
               </Avatar>
-              <h1 className="text-2xl font-bold ml-6 text-orange-600">
-                {product.seller}
-              </h1>
+              <div className="ml-6">
+                <h2 className="text-2xl font-bold text-orange-600">{product.user?.first_name || "Unknown"}</h2> {/* Utilisez l'opérateur ?. pour vérifier si user est défini */}
+              </div>
             </div>
             <div className="mt-20 ">
-                <h1 className="ml-8"></h1>
-
+              <h1 className="ml-8"></h1>
             </div>
             <div className="flex flex-col items-center space-y-8 mt-36">
               <Button
@@ -80,7 +82,9 @@ export default function ProductView({ product }: ProductViewProps) {
       <div className="flex flex-col mt-20">
         <div className="flex flex-row">
           <h1 className="text-4xl font-bold ml-36 mt-2">{product.title}</h1>
-          <h1 className="text-4xl font-bold absolute right-[600px] mt-2 text-orange-600">{product.price} $ </h1>
+          <h1 className="text-4xl font-bold absolute right-[600px] mt-2 text-orange-600">
+            {product.price} ${" "}
+          </h1>
         </div>
         <p className="text-lg  ml-36 mt-8 w-[880px]">{product.description}</p>
         <div className="flex flex-row">

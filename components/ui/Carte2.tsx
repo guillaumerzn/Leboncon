@@ -25,7 +25,7 @@ export default function Carte2({ product }: Carte2Props) {
               <Image
                 src={product.image_2}
                 alt={`Image principale de ${product.title}`}
-                className="rounded-md object-contain cursor-pointer"
+                className="rounded-2xl object-contain cursor-pointer"
                 layout="fill"
               />
             ) : (

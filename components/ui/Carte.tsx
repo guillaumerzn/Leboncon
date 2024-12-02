@@ -1,18 +1,19 @@
 "use client";
 import { Card, CardContent, CardFooter, CardTitle } from "./card";
-import { ProductType } from "@/app/home/page";
+import { ProductType, UserWithProductsType } from "@/app/home/page";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 type CarteProps = {
-  product: ProductType & { sellerName: string; logo: string; sellerProducts: ProductType[] };
+  userWithProducts: UserWithProductsType;
 };
 
-export default function Carte({ product }: CarteProps) {
+export default function Carte({ userWithProducts }: CarteProps) {
   const router = useRouter();
+  const { user, products } = userWithProducts;
 
-  const handleProductClicked = () => {
-    router.push(`/products/${product.id}`);
+  const handleProductClicked = (productId: number) => {
+    router.push(`/products/${productId}`);
   };
 
   const renderThumbnail = (imageUri: string, altText: string) => (
@@ -31,44 +32,41 @@ export default function Carte({ product }: CarteProps) {
       <CardContent className="flex flex-col items-center w-full h-full">
         {/* Image principale */}
         <div className="relative w-full h-64 mb-4">
-          <a onClick={handleProductClicked}>
+          <a onClick={() => handleProductClicked(products[0].id)}>
             <Image
-              src={product.image_2}
-              alt={`Image principale de ${product.title}`}
+              src={products[0].image_2}
+              alt={`Image principale de ${products[0].title}`}
               className="rounded-xl object-contain cursor-pointer"
               layout="fill"
             />
           </a>
         </div>
         {/* Miniatures */}
-        <div className="flex space-x-6 w-full justify-center">
-          {product.sellerProducts.slice(0, 3).map((p, index) => (
-            renderThumbnail(p.image_1, `Vignette ${index + 1} de ${p.title}`)
+        <div className="flex space-x-6 w-full justify-center opacity-90">
+          {products.slice(1, 4).map((product, index) => (
+            <a key={index} onClick={() => handleProductClicked(product.id)} className="p-1 border rounded-xl cursor-pointer">
+              {renderThumbnail(product.image_1, `Vignette ${index + 1} de ${product.title}`)}
+            </a>
           ))}
-          {product.sellerProducts.length < 3 && (
-            Array.from({ length: 3 - product.sellerProducts.length }).map((_, index) => (
-              renderThumbnail("/default-image.png", `Vignette ${index + 1} par défaut`)
-            ))
-          )}
         </div>
       </CardContent>
       <CardFooter className="mt-2 w-full flex items-center justify-between border-t pt-6">
         <div className="flex items-center space-x-2">
           {/* Logo de la marque */}
           <Image
-            src={product.logo || "/default-logo.png"}
+            src={user.logo || "/default-logo.png"}
             width={30}
             height={40}
-            alt={`Logo de ${product.sellerName}`}
+            alt={`Logo de ${user.first_name}`}
             className="rounded-full"
           />
           {/* Nom de la marque */}
           <CardTitle className="font-bold text-xl">
-            {product.sellerName}
+            {user.first_name}
           </CardTitle>
         </div>
         {/* Texte d'items à collectionner */}
-        <p className="text-xs text-gray-500">4 items to collect</p>
+        <p className="text-xs text-gray-500">{products.length} items to collect</p>
       </CardFooter>
     </Card>
   );
